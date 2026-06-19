@@ -1,0 +1,53 @@
+{
+    "libis.solis.save": "Save",
+    "libis.solis.delete": "Delete",
+    "libis.solis.cancel": "Cancel",
+    "libis.solis.confirm": "Confirm",
+    "libis.solis.edit": "Edit",
+    "libis.solis.search": "Search",
+    "libis.solis.add": "add",
+    "libis.solis.add.btn": "Add",
+    "libis.solis.all": "All",
+    "libis.solis.no.results": "No results",
+
+    "libis.solis.delete.message.title": "Are you sure you want to delete {title}?",
+    "libis.solis.delete.message.text": "Once the record is deleted, this action cannot be undone.",
+    "libis.solis.delete.check.title": "Enter the record title to confirm",
+    "libis.solis.delete.message.simple": "Are you sure you want to delete this?",
+
+    "libis.solis.from.errors.title": "The entered fields contain errors:",
+
+    "libis.solis.error.unknown.field.name": "Unknown field",
+    "libis.solis.error.required": "{label} is a required field.",
+    "libis.solis.error.min.record": "{label} must contain at least {min} item(s).",
+    "libis.solis.error.max.record": "{label} can contain at most {max} item(s).",
+    "libis.solis.error.valid.number": "{label} must be a number.",
+    "libis.solis.error.number.min": "{label}: the value must be smaller than {min}.",
+    "libis.solis.error.number.max": "{label}: the value must not exceed {max}.",
+    "libis.solis.error.valid.email": "{label} must contain a valid email address.",
+    "libis.solis.error.valid.url": "{label} must contain a valid URL.",
+
+    "libis.solis.error.min.item": "Select at least {min} item(s).",
+    "libis.solis.error.max.item": "Select at most {max} item(s).",
+
+    "libis.solis.error.fill.all.required.fields": "Fill in all required fields before saving.",
+    "libis.solis.error.fill.all.fields": "Fill in all fields.",
+
+    "libis.solis.error.invalid.JSON": "Invalid data, please try again later. If the problem persists, contact LIBIS.",
+    "libis.solis.error.solis.request.failed": "Something went wrong while saving the data, please try again later. If the problem persists, contact LIBIS. Error code:",
+    "libis.solis.error.solis.request.failed.wh.code": "Something went wrong while saving the data, please try again later. If the problem persists, contact LIBIS.",
+    "libis.solis.error.solis.request.failed.translation": "Something went wrong while translating the created record, please try again later. If the problem persists, contact LIBIS.",
+
+    "libis.solis.codeTables": "Code tables",
+    "libis.solis.codeTables.title": "Title",
+    "libis.solis.codeTables.id": "Id",
+
+    "libis.solis.nav.all.records": "All {type} items",
+    "libis.solis.nav.add.record": "Add {type} item",
+    "libis.solis.nav.record": "{type} item",
+    "libis.solis.records": "items",
+
+    "libis.solis.error.rename.not.allowed": "You are not allowed to change the name.",
+    "libis.solis.error.page.of.imageupload": "The upload page does not exist.",
+    "libis.solis.no.rights.add": "You do not have permission to add this."
+}

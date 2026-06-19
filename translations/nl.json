@@ -1,0 +1,53 @@
+{
+    "libis.solis.save": "Opslaan",
+    "libis.solis.delete": "Verwijder",
+    "libis.solis.cancel": "Annuleer",
+    "libis.solis.confirm": "Bevestig",
+    "libis.solis.edit": "Pas aan",
+    "libis.solis.search": "Zoeken",
+    "libis.solis.add": "toevoegen",
+    "libis.solis.add.btn": "Voeg toe",
+    "libis.solis.all": "Alle",
+    "libis.solis.no.results": "Geen resultaten",
+
+    "libis.solis.delete.message.title": "Ben je zeker dat je {title} wilt verwijderen?",
+    "libis.solis.delete.message.text": "Eenmaal het record is verwijderd dan is dit onomkeerbaar.",
+    "libis.solis.delete.check.title": "Voer de titel van het record in om te bevestigen",
+    "libis.solis.delete.message.simple": "Ben je zeker dat je dit wilt verwijderen?",
+
+    "libis.solis.from.errors.title": "De ingevulde velden bevatten fouten:",
+
+    "libis.solis.error.unknown.field.name": "Onbekend veld",
+    "libis.solis.error.required": "{label} is een verplicht veld.",
+    "libis.solis.error.min.record": "{label} moet minstens {min} object(en) bevatten.",
+    "libis.solis.error.max.record": "{label} mag maar maximaal {max} object(en) bevatten.",
+    "libis.solis.error.valid.number": "{label} moet een getal zijn.",
+    "libis.solis.error.number.min": "{label}: het getal moet kleiner zijn dan {min}.",
+    "libis.solis.error.number.max": "{label}: het getal mag niet groter zijn dan {max}.",
+    "libis.solis.error.valid.email": "{label} moet een geldig emailadres bevatten.",
+    "libis.solis.error.valid.url": "{label} moet een geldige url bevatten.",
+
+    "libis.solis.error.min.item": "Selecteer minimaal {min} objecten.",
+    "libis.solis.error.max.item": "Selecteer minimaal {max} objecten.",
+
+    "libis.solis.error.fill.all.required.fields": "Vul alle verplichte velden in voordat je opslaat.",
+    "libis.solis.error.fill.all.fields": "Vul alle velden in.",
+
+    "libis.solis.error.invalid.JSON": "Ongeldige data, probeer later opnieuw. Indien dit probleem zich blijft voordoen, neem dan contact op met LIBIS.",
+    "libis.solis.error.solis.request.failed": "Er liep iets mis tijdens het wegschrijven van de data, probeer later opnieuw. Indien dit probleem zich blijft voordoen, neem dan contact op met LIBIS. Foutcode:",
+    "libis.solis.error.solis.request.failed.wh.code": "Er liep iets mis tijdens het wegschrijven van de data, probeer later opnieuw. Indien dit probleem zich blijft voordoen, neem dan contact op met LIBIS.",
+    "libis.solis.error.solis.request.failed.translation": "Er liep iets mis tijdens het vertalen van het aangemaakte record, probeer later opnieuw. Indien dit probleem zich blijft voordoen, neem dan contact op met LIBIS.",
+
+    "libis.solis.codeTables": "Codetabellen",
+    "libis.solis.codeTables.title": "Titel",
+    "libis.solis.codeTables.id": "Id",
+
+    "libis.solis.nav.all.records": "Alle {type} objecten",
+    "libis.solis.nav.add.record": "{type} object toevoegen",
+    "libis.solis.nav.record": "{type} object",
+    "libis.solis.records": "objecten",
+
+    "libis.solis.error.rename.not.allowed": "Je mag de naam niet wijzigen.",
+    "libis.solis.error.page.of.imageupload": "De uploadpagina bestaat niet.",
+    "libis.solis.no.rights.add": "Je hebt geen rechten om dit toe te voegen."
+}

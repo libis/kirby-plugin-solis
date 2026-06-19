@@ -1,0 +1,53 @@
+{
+    "libis.solis.save": "Enregistrer",
+    "libis.solis.delete": "Supprimer",
+    "libis.solis.cancel": "Annuler",
+    "libis.solis.confirm": "Confirmer",
+    "libis.solis.edit": "Modifier",
+    "libis.solis.search": "Rechercher",
+    "libis.solis.add": "ajouter",
+    "libis.solis.add.btn": "Ajouter",
+    "libis.solis.all": "Tous",
+    "libis.solis.no.results": "Aucun résultat",
+
+    "libis.solis.delete.message.title": "Êtes-vous sûr de vouloir supprimer {title}?",
+    "libis.solis.delete.message.text": "Une fois l'enregistrement supprimé, cette action est irréversible.",
+    "libis.solis.delete.check.title": "Saisissez le titre de l'enregistrement pour confirmer",
+    "libis.solis.delete.message.simple": "Êtes-vous sûr de vouloir supprimer ceci ?",
+
+    "libis.solis.from.errors.title": "Les champs saisis contiennent des erreurs :", 
+
+    "libis.solis.error.unknown.field.name": "Champ inconnu",
+    "libis.solis.error.required": "{label} est un champ obligatoire.",
+    "libis.solis.error.min.record": "{label} doit contenir au moins {min} élément(s).",
+    "libis.solis.error.max.record": "{label} peut contenir au maximum {max} élément(s).",
+    "libis.solis.error.valid.number": "{label} doit être un nombre.",
+    "libis.solis.error.number.min": "{label} : la valeur doit être inférieure à {min}.",
+    "libis.solis.error.number.max": "{label} : la valeur ne doit pas dépasser {max}.",
+    "libis.solis.error.valid.email": "{label} doit contenir une adresse e-mail valide.",
+    "libis.solis.error.valid.url": "{label} doit contenir une URL valide.",
+
+    "libis.solis.error.min.item": "Sélectionnez au moins {min} élément(s).",
+    "libis.solis.error.max.item": "Sélectionnez au maximum {max} élément(s).",
+
+    "libis.solis.error.fill.all.required.fields": "Remplissez tous les champs obligatoires avant d'enregistrer.",
+    "libis.solis.error.fill.all.fields": "Remplissez tous les champs.",
+
+    "libis.solis.error.invalid.JSON": "Données invalides, veuillez réessayer plus tard. Si le problème persiste, contactez LIBIS.",
+    "libis.solis.error.solis.request.failed": "Une erreur est survenue lors de l'enregistrement des données, veuillez réessayer plus tard. Si le problème persiste, contactez LIBIS. Code d'erreur :",
+    "libis.solis.error.solis.request.failed.wh.code": "Une erreur est survenue lors de l'enregistrement des données, veuillez réessayer plus tard. Si le problème persiste, contactez LIBIS.",
+    "libis.solis.error.solis.request.failed.translation": "Une erreur est survenue lors de la traduction de l'enregistrement créé, veuillez réessayer plus tard. Si le problème persiste, contactez LIBIS.",
+
+    "libis.solis.codeTables": "Tables de codes",
+    "libis.solis.codeTables.title": "Titre",
+    "libis.solis.codeTables.id": "Id",
+
+    "libis.solis.nav.all.records": "Tous les éléments {type}",
+    "libis.solis.nav.add.record": "Ajouter un élément {type}",
+    "libis.solis.nav.record": "Élément {type}",
+    "libis.solis.records": "éléments",
+
+    "libis.solis.error.rename.not.allowed": "Vous n'êtes pas autorisé à modifier le nom.",
+    "libis.solis.error.page.of.imageupload": "La page de téléchargement n'existe pas.",
+    "libis.solis.no.rights.add": "Vous n'avez pas l'autorisation d'ajouter ceci."
+}

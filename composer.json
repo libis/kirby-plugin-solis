@@ -1,0 +1,21 @@
+{
+	"name": "libis/solis-records",
+	"description": "Get Records of solis",
+	"license": "MIT",
+	"type": "kirby-plugin",
+	"version": "5.0.0",
+	"authors": [
+		{
+			"name": "Libis",
+			"email": "info@libis.be"
+		}
+	],
+	"require": {
+		"getkirby/composer-installer": "^1.1"
+	},
+	"config": {
+		"allow-plugins": {
+			"getkirby/composer-installer": true
+		}
+	}
+}

@@ -37,6 +37,7 @@ function sanitizeData($data, $allowedTags) {
       return $data;
   }
 }
+require __DIR__ . '/data-processing/imageObjectRecords.php';
 Kirby::plugin('libis/solis-records', [
   'fields' => [
     'add_multiple_values_field' => [],
@@ -201,7 +202,6 @@ Kirby::plugin('libis/solis-records', [
             ]);
             $response = curl_exec($curl);
             $err = curl_error($curl);
-            curl_close($curl);
             $data = json_decode($response, true);
             if($data) {
               $items = $data['docs'] ?? [];

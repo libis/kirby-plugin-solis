@@ -87,15 +87,7 @@ Kirby::plugin('libis/solis-records', [
       'icon' => '',
       'menu' => true,
       'breadcrumbLabel' => 'Records',
-      'views' => [
-        require __DIR__ . '/views/records.php',
-        //example
-        require __DIR__ . '/views/items/exampleRecords.php',
-        require __DIR__ . '/views/items/exmapleRecord.php',
-        require __DIR__ . '/views/items/exampleItemRecord.php',
-        //codeTables
-        require __DIR__ . '/views/codeTables/codeTables.php',
-      ],
+      require __DIR__ . '/area-views/views.php';
     ]
   ],
   'hooks' => [

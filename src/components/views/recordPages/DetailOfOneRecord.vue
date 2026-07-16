@@ -275,7 +275,8 @@ export default {
 
           const result = await response.json();
           if (result.status === 'success') {
-            window.location.reload();
+            this.isSaving = false;
+            this.originalData = this.formData;
           }
           else {
             this.isSaving = false;

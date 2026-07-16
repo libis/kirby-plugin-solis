@@ -276,7 +276,7 @@ export default {
           const result = await response.json();
           if (result.status === 'success') {
             this.isSaving = false;
-            this.originalData = this.formData;
+            this.originalData = JSON.parse(JSON.stringify(this.formData));
           }
           else {
             this.isSaving = false;

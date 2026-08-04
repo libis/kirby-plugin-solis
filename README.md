@@ -237,7 +237,9 @@ style  | Definieert de breedte van de kolom binnen het overzichtsscherm.
 <br/>
 
 #### Mogelijke velden
-Je kan alle basis veldtypes van Kirby gebruiken om data te tonen maar ook enkele speciaal ontwikkelde velden. Elk veld maak gebruik van de volgende basisstructuur:
+Je kan alle standaard Kirby-veldtypes gebruiken om data te tonen, aangevuld met enkele speciaal ontwikkelde velden.
+
+Elk veld maakt gebruik van de volgende basisstructuur:
 
 ```php
 [
@@ -254,20 +256,20 @@ Je kan alle basis veldtypes van Kirby gebruiken om data te tonen maar ook enkele
 
 Eigenschap | Beschrijving
 |:-----|:----
-Name | Dit is de unieke benaming van het veld binnen die pagina. Deze is best dezelfde dan de naam die Solis verwacht bij het wegschrijven van de pagina.
-Align | Dit kan 'right' of 'left' zijn. Dit is enkel van toepassing als je formulier 2 kolommen heeft.
-Type | Het veld type. Zie hieronder de mogelijkheden.
-Icon | Je kan indien gewenst een icoon toevoegen aan de label van het veld. (bijvoorbeeld een vertaal icoon om aan te geven dat dit veld vertaalbaar is)
-Label | De label van het veld.
-Solis-selector | Hoe haal ik de waarde uit de verkregen json van Solis data.
-Style | Extra styling voor het veld. Dit moet altijd minstens het volgende bevatten (--width: 1/1; of een andere width waarde)
-Min | Niet toevoegen als het veld niet verplicht is. 1 als het gewoon verplicht is en meer als er meerdere mogen / moeten ingegeven worden (natuurlijk enkel mogelijk bij velden die dit toestaan)
+Name | Unieke naam van het veld binnen de pagina. Gebruik bij voorkeur dezelfde naam als de naam die Solis verwacht bij het opslaan van de pagina.
+Align | Mogelijke waarden: left of right. Enkel van toepassing wanneer het formulier uit twee kolommen bestaat.
+Type | Het type van het veld. Zie de beschikbare veldtypes hieronder.
+Icon | Optioneel icoon dat aan het label wordt toegevoegd, bijvoorbeeld om aan te geven dat een veld vertaalbaar is.
+Label | Label dat wordt weergegeven bij het veld.
+Solis-selector | Geeft aan hoe de waarde wordt opgehaald uit de ontvangen Solis JSON-data.
+Style | Extra styling voor het veld. Moet minstens een breedte bevatten, bijvoorbeeld --width: 1/1;.
+Min | Enkel toevoegen indien het veld verplicht is. Gebruik 1 voor verplichte velden of een hogere waarde bij velden waarvoor meerdere waarden vereist zijn.
 
 <br/>
 
 ##### Alle velden
 - **Text-field** <br/>
-  Je hoeft geen extra gegevens meegeven om dit veld te laten werken. Dit is een kirby basis veld en alle mogelijkheden van dit veld vind je terug in de [handleiding](https://lab.getkirby.com/public/lab/components/fields/text). Als je extra gegevens wilt meegeven voeg je een array `componentsOptions` mee. Bv.:
+  Dit is een standaard Kirby-veld. Alle beschikbare opties vind je in de officiële documentatie: [handleiding](https://lab.getkirby.com/public/lab/components/fields/text). Extra configuratie kan worden meegegeven via `componentsOptions`.
    ```php
      'componentsOptions' =>[
           'after' => '€',
@@ -277,7 +279,7 @@ Min | Niet toevoegen als het veld niet verplicht is. 1 als het gewoon verplicht 
 <br/>
    
 - **Textarea-field** <br/>
-  Je hoeft geen extra gegevens meegeven om dit veld te laten werken. Dit is een kirby basis veld en alle mogelijkheden van dit veld vind je terug in de [handleiding](https://lab.getkirby.com/public/lab/components/fields/textarea). Standaard zullen er buttons voor bold text, ... aanwezig zijn, je kan dit afzetten in de `componentsOptions`. Ook hier kan je andere gegevens meegeven in deze `componentsOptions` array. Bv.:
+  Dit is een standaard Kirby-veld. Alle beschikbare opties vind je in de officiële documentatie: [handleiding](https://lab.getkirby.com/public/lab/components/fields/textarea). Standaard bevat dit veld formatteringsknoppen (zoals bold). Deze kunnen uitgeschakeld worden via `componentsOptions` array.
   ```php
      'componentsOptions' =>[
           'buttons' => false,
@@ -287,11 +289,39 @@ Min | Niet toevoegen als het veld niet verplicht is. 1 als het gewoon verplicht 
 
 <br/>
   
-- Number-field
+- **Number-field** <br/>
+  Dit is een standaard Kirby-veld. Alle beschikbare opties vind je in de officiële documentatie: [handleiding](https://lab.getkirby.com/public/lab/components/fields/number). Extra configuratie wordt meegegeven via componentsOptions.
+  ```php
+     'componentsOptions' =>[
+          'min' => 1
+      ],
+   ```
+  Hier kunnen onder andere minimumwaarden, maximumwaarden en stappen (step) worden ingesteld.
+
+  > Opmerking: De min binnen componentsOptions bepaalt de minimale numerieke waarde en niet of het veld verplicht is. Om een veld verplicht te maken gebruik je:
+  
+  ```php
+     'required' => true,
+  ```
+
+<br/>
+
 - Select-field
-- Toggle-field
+  
+- **Toggle-field** <br/>
+    Dit is een standaard Kirby-veld. Alle beschikbare opties vind je in de officiële documentatie: [handleiding](https://lab.getkirby.com/public/lab/components/fields/toggle). Extra configuratie kan worden meegegeven via `componentsOptions`.
+   ```php
+     'componentsOptions' =>[
+          'checked' => true,
+      ],
+   ```
+
+<br/>
+
 - Toggles-field
 - Entity
+  - Relation-field
+  - Add-multiple-values-field
 
 Andere basisvelden van Kirby zullen mogelijks ook werken maar deze zijn nog niet getest. Bekijk de andere Kirby velden [hier](https://lab.getkirby.com/public/lab/components/fields/checkboxes)
 ### Views

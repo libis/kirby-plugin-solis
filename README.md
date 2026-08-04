@@ -64,23 +64,40 @@ Basisdata (plaats in je `config.php` of voor meer veiligheid in `env.php`):
 <br/>
 
 ## Project structuur
-Deze plugin weet uitzichzelf niet welke entititeiten een pagina krijgen en wat er moet gebeuren voordat de data naar SOLIS wordt gestuurd. Het is dus belangrijk dat je in `/site/plugins` een map `solis-records` maakt. In deze map maak je minstens volgende structuur. Bij gebruik in een docker image, mount niet de volledige plugin maar de onderstaande vermelden mappen/files.
+De plugin bevat de generieke functionaliteit om records aan te maken, te bewerken en te verwijderen in SOLIS. Ze weet echter niet welke pagina's beschikbaar moeten zijn, welke entiteiten getoond moeten worden of welke dataverwerking nodig is voordat gegevens naar SOLIS worden verzonden.
+Daarom moet je binnen `site/plugins` een extra map `kirby-solis` voorzien waarin je de configuratie van jouw project definieert.
 
 ```
 site/
 └── plugins/
-    └── solis-records/
+    └── kirby-solis/
+        ├── area-views
         ├── data-processing
         ├── pageStructures
-        ├── views
-        └── index.php
+        └── views
 ```
+
+> Bij gebruik binnen een Docker-image hoef je niet de volledige plugin te mounten. Het volstaat om de bovenstaande mappen en bestanden beschikbaar te maken.
+
+Bestand/Map | Beschrijving 
+--- | --- 
+area-views | Bevat 1 file met alle view files uit de `views` map dat geimmporteerd moeten worden zodat deze in de `index.php` automatisch binnengehaald worden.
+--- | --- 
+pageStructures | Definieert welke pagina's beschikbaar zijn en hoe records worden weergegeven en beheerd.
+--- | --- 
+views | Bevat per record type en per type pagina een file voor het ophalen van de data.
+--- | --- 
+data-processing | Bevat logica om data te transformeren of valideren voordat deze naar SOLIS wordt gestuurd.
 
 <br/>
 
-### PaginaStructuur
-Per pagina type maak je een file aan in de map `pageStructures`. Niet alle entiteiten 
+### PageStructures
+Per record type waar je een pagina wilt voorzien maak je een file aan in de map `pageStructures`. Niet alle record types (entiteiten) moeten een pagina hebben (sommige recordtypes hangen specifiek aan een ander record type vast en zal niet voorkomen in een ander record. In deze gevallen hoef je hier geen apparte pagina dus ook geen pageStructure voor te maken.
 
+Zo een file bevat alle nodige data om een creëer pagina + info (aanpassen) pagina + pagina met een lijst van alle record van dat type te creëren. Deze pagina is een return array in PHP. 
+Deze array bevat wat algemene data die voor alle pagina's van toepassing zijn denk maar aan een link een record te bekomen, de plural solis entiteit naam, enkelvoud naam en hoe deze entiteit opgezocht kan worden via de search api.
+Buiten de algemene info zal je data kunnen meegeven voor de specifieke data denk maar aan welke tabs staan er bovenaan op deze pagina, welke velden moeten ingevuld zijn voor het creeëren van het record. En welke velden heeft het record als je het in detail bekijkt. Een voorbeeld van zo een pagina vind je in de map pageStructures [exampleStructure](https://github.com/libis/kirby-plugin-solis/blob/main/pageStructures/exampleStructure.php)
+Alle codetabellen entiteiten zijn hier wel een uitzondering op deze structuur is net wat anders opgebouwd. Hieronder ga ik verder in op hoe je zo een pagina opbouwt.
 
 #### Entiteit
 
@@ -91,4 +108,6 @@ Per pagina type maak je een file aan in de map `pageStructures`. Niet alle entit
 
 ### Views
 
-### Data afhandeling
+### Data-processing
+
+### area views

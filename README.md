@@ -5,6 +5,8 @@
 
 ---
 
+<br/>
+
 ## ✨ Features
 - **Create**: Voeg nieuwe entiteiten en relaties toe aan de Solis-triplestore.
 - **Update**: Pas bestaande data aan zonder verlies van modelconsistentie.

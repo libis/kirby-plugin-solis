@@ -235,7 +235,61 @@ label | Weergavenaam van de kolom in de gebruikersinterface.
 style  | Definieert de breedte van de kolom binnen het overzichtsscherm.
 
 #### Mogelijke velden
+Je kan alle basis veldtypes van Kirby gebruiken om data te tonen maar ook enkele speciaal ontwikkelde velden. Elk veld maak gebruik van de volgende basisstructuur:
 
+```php
+[
+    'name' => '',    
+    'align' => '',  
+    'type' => '', 
+    'icon' => '',
+    'label' => 'Tag', 
+    'solis-selector' => 'tag', 
+    'style' => '--width: 1/1;',
+    'min' => 1
+],
+```
+
+Eigenschap | Beschrijving
+|:-----|:----
+Name | Dit is de unieke benaming van het veld binnen die pagina. Deze is best dezelfde dan de naam die Solis verwacht bij het wegschrijven van de pagina.
+Align | Dit kan 'right' of 'left' zijn. Dit is enkel van toepassing als je formulier 2 kolommen heeft.
+Type | Het veld type. Zie hieronder de mogelijkheden.
+Icon | Je kan indien gewenst een icoon toevoegen aan de label van het veld. (bijvoorbeeld een vertaal icoon om aan te geven dat dit veld vertaalbaar is)
+Label | De label van het veld.
+Solis-selector | Hoe haal ik de waarde uit de verkregen json van Solis data.
+Style | Extra styling voor het veld. Dit moet altijd minstens het volgende bevatten (--width: 1/1; of een andere width waarde)
+Min | Niet toevoegen als het veld niet verplicht is. 1 als het gewoon verplicht is en meer als er meerdere mogen / moeten ingegeven worden (natuurlijk enkel mogelijk bij velden die dit toestaan)
+
+##### Alle velden
+- Text-field
+  Je hoeft geen extra gegevens meegeven om dit veld te laten werken. Dit is een kirby basis veld en alle mogelijkheden van dit veld vind je terug in de [handleiding](https://lab.getkirby.com/public/lab/components/fields/text). Als je extra gegevens wilt meegeven voeg je een array `componentsOptions` mee. Bv.:
+   ```php
+     'componentsOptions' =>[
+          'after' => '€',
+      ],
+   ```
+
+<br/>
+   
+- Textarea-field
+  Je hoeft geen extra gegevens meegeven om dit veld te laten werken. Dit is een kirby basis veld en alle mogelijkheden van dit veld vind je terug in de [handleiding](https://lab.getkirby.com/public/lab/components/fields/textarea). Standaard zullen er buttons voor bold text, ... aanwezig zijn, je kan dit afzetten in de `componentsOptions`. Ook hier kan je andere gegevens meegeven in deze `componentsOptions` array. Bv.:
+  ```php
+     'componentsOptions' =>[
+          'buttons' => false,
+          'size' => 'medium' 
+      ],
+   ```
+
+<br/>
+  
+- Number-field
+- Select-field
+- Toggle-field
+- Toggles-field
+- Entity
+
+Andere basisvelden van Kirby zullen mogelijks ook werken maar deze zijn nog niet getest. Bekijk de andere Kirby velden [hier](https://lab.getkirby.com/public/lab/components/fields/checkboxes)
 ### Views
 
 ### Data-processing

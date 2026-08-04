@@ -622,7 +622,7 @@ In dit voorbeeld wordt "Codetabbelen' vertaald in de juiste gevraagde taal. Pas 
 
 <br/>
 
-### area views
+### Area views
 Maak 1 php file aan genaamd views.php. Deze file zal een array returnen met alle php files uit de views map. Elke file voeg je toe op volgende manier:
 ``` php
 require __DIR__ . '/../views/items/exampleRecords.php',

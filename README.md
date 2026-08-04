@@ -61,6 +61,8 @@ Basisdata (plaats in je `config.php` of voor meer veiligheid in `env.php`):
 ],
 ```
 
+<br/>
+
 ## Project structuur
 Deze plugin weet uitzichzelf niet welke entititeiten een pagina krijgen en wat er moet gebeuren voordat de data naar SOLIS wordt gestuurd. Het is dus belangrijk dat je in `/site/plugins` een map `solis-records` maakt. In deze map maak je minstens volgende structuur. Bij gebruik in een docker image, mount niet de volledige plugin maar de onderstaande vermelden mappen/files.
 
@@ -73,6 +75,8 @@ site/
         ├── views
         └── index.php
 ```
+
+<br/>
 
 ### PaginaStructuur
 Per pagina type maak je een file aan in de map `pageStructures`. Niet alle entiteiten 

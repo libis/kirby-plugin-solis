@@ -99,18 +99,140 @@ Voor elk recordtype waarvoor een beheerpagina beschikbaar moet zijn, maak je een
 
 Niet elk SOLIS-recordtype vereist een eigen pagina. Sommige entiteiten bestaan uitsluitend als onderdeel van een andere entiteit en worden nooit afzonderlijk beheerd. Voor deze recordtypes hoef je geen aparte page structure aan te maken.
 
-Elke page structure bestaat uit een PHP-bestand dat een array retourneert. Deze configuratie wordt gebruikt om automatisch:
+Elke page structure bestaat uit een PHP-bestand dat een array retourneert. Op basis van deze configuratie genereert de plugin automatisch:
 
-- een overzichtspagina met alle records van een bepaald type te genereren;
-- een pagina voor het aanmaken van nieuwe records te genereren;
-- een detailpagina voor het bekijken en bewerken van bestaande records te genereren.
+- een overzichtspagina met alle records;
+- een pagina voor het aanmaken van nieuwe records;
+- een detailpagina voor het bekijken en bewerken van bestaande records.
+
+Een eenvoudige structuur ziet er als volgt uit:
+``` php
+return [
+    'main' => [],
+    'add'  => [],
+    'edit' => [],
+    'list' => [],
+];
+```
+
+Een volledig voorbeeld vind je in:
+[pageStructures/exampleStructure.php](https://github.com/libis/kirby-plugin-solis/blob/main/pageStructures/exampleStructure.php)
 
 <br/>
 
-#### Entiteit
+#### Main
+De main sectie bevat algemene configuratie die voor alle schermen gebruikt wordt.
 
+``` php
+'main' => [
+  'requestsInKirbyLink' => '/records/example/example',
+  'type' => 'example',
+  'singularType' => 'example',
+  'searchType' => 'example',
+]
+```
 
-#### CodeTabel
+Eigenschap | Beschrijving
+|:-----|:----
+requestsInKirbyLink | Basislink naar een individueel record.
+type	| Naam van het recordtype in SOLIS.
+singularType | Enkelvoudige naam van het recordtype.
+searchType | Type waarmee het record via de SOLIS Search API wordt opgezocht.
+
+<br/>
+
+#### Add
+De add sectie bepaalt hoe de pagina voor het toevoegen van nieuwe records wordt opgebouwd.
+
+``` php
+'add' => [
+  'tabs' => [...],
+  'amountOfColumns' => 2,
+  'fields' => [...]
+]
+```
+
+Eigenschap | Beschrijving
+|:-----|:----
+tabs | Tabs die bovenaan het scherm worden weergegeven.
+amountOfColumns | Aantal kolommen waarin het formulier wordt opgebouwd (1 of 2).
+fields | Velden die ingevuld moeten worden bij het aanmaken van een record. Zie mogelijke velden voor de mogelijkheden.
+
+<br/>
+
+#### Edit
+De edit sectie bepaalt hoe een bestaand record wordt weergegeven en aangepast.
+
+``` php
+'edit' => [
+  'titleSelector' => 'tag.tag_name',
+  'tabs' => [...],
+  'amountOfColumns' => 2,
+  'fields' => [...]
+]
+```
+
+Eigenschap | Beschrijving
+|:-----|:----
+titleSelector | Pad naar de waarde die als titel van het record wordt weergegeven.
+tabs | Tabs die bovenaan het scherm worden weergegeven.
+amountOfColumns | Aantal kolommen waarin het formulier wordt opgebouwd (1 of 2).
+fields | Velden die bekeken en aangepast kunnen worden. Zie mogelijke velden voor de mogelijkheden.
+
+<br/>
+
+#### List
+De list sectie definieert het overzichtsscherm van een recordtype.
+
+``` php
+'list' => [
+  'titleSelector' => 'tag.tag_name',
+  'infoSelector' => 'role.value',
+  'tabs' => [...]
+]
+```
+
+Eigenschap | Beschrijving
+|:-----|:----
+titleSelector | Waarde die als titel van een record wordt weergegeven in de lijst.
+infoSelector | Extra informatie die onder de titel wordt getoond.
+tabs | Tabs die bovenaan het scherm worden weergegeven.
+
+<br/>
+
+#### Codetabellen
+
+Codetabel-entiteiten maken gebruik van een afwijkende configuratiestructuur. Deze structuur wordt toegepast voor entiteiten die binnen SOLIS fungeren als vaste waardelijsten.
+
+Alle codetabellen worden gegroepeerd op één overzichtspagina. Omdat deze entiteiten uitsluitend bestaan uit een lijst van waarden, worden er geen afzonderlijke pagina's voorzien voor het aanmaken, weergeven of oplijsten van records. De volledige configuratie wordt bijgehouden in één centrale configuratiefile.
+
+Onderstaande configuratiegegevens zijn vereist:
+
+```php
+return [
+    'main' => [
+        'requestsInKirbyLink' => '/records/codetables', 
+        'name' => 'Codetables'
+    ],
+    'codeTables' => [
+        [
+            'name' => 'example', 
+            'solisSearchRecord' => 'example', 
+            'label' => 'Example', 
+            'style' => '--width:1/3', 
+        ]
+    ]
+];
+```
+
+Eigenschap | Beschrijving
+|:-----|:----
+requestsInKirbyLink | URL waarnaar wordt teruggekeerd na acties zoals het aanmaken of wijzigen van een record.
+name (main) | Naam van deze pagina
+name (codeTables) | Naam van de kolom voor de codeTabel
+solisSearchRecord | Identifier die gebruikt wordt om records van dit type op te zoeken in SOLIS.
+label | Weergavenaam van de kolom in de gebruikersinterface.
+style  | Definieert de breedte van de kolom binnen het overzichtsscherm.
 
 #### Mogelijke velden
 

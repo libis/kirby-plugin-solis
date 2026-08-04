@@ -79,14 +79,12 @@ site/
 
 > Bij gebruik binnen een Docker-image hoef je niet de volledige plugin te mounten. Het volstaat om de bovenstaande mappen en bestanden beschikbaar te maken.
 
+<br/>
+
 Bestand/Map | Beschrijving 
---- | --- 
 area-views | Bevat 1 file met alle view files uit de `views` map dat geimmporteerd moeten worden zodat deze in de `index.php` automatisch binnengehaald worden.
---- | --- 
 pageStructures | Definieert welke pagina's beschikbaar zijn en hoe records worden weergegeven en beheerd.
---- | --- 
 views | Bevat per record type en per type pagina een file voor het ophalen van de data.
---- | --- 
 data-processing | Bevat logica om data te transformeren of valideren voordat deze naar SOLIS wordt gestuurd.
 
 <br/>

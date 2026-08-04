@@ -90,10 +90,6 @@ data-processing | Bevat logica om data te transformeren of valideren voordat dez
 
 <br/>
 
-### area views
-
-<br/>
-
 ### PageStructures
 Voor elk recordtype waarvoor een beheerpagina beschikbaar moet zijn, maak je een PHP-bestand aan in de map pageStructures.
 
@@ -298,7 +294,7 @@ Min | Enkel toevoegen indien het veld verplicht is. Gebruik 1 voor verplichte ve
    ```
   Hier kunnen onder andere minimumwaarden, maximumwaarden en stappen (step) worden ingesteld.
 
-  > Opmerking: De min binnen componentsOptions bepaalt de minimale numerieke waarde en niet of het veld verplicht is. Om een veld verplicht te maken gebruik je:
+  > Opmerking: De min / max buiten componentsOptions bepaalt de minimale / maximale numerieke waarde en niet of het veld verplicht is. Om een veld verplicht te maken gebruik je:
   
   ```php
      'required' => true,
@@ -306,7 +302,49 @@ Min | Enkel toevoegen indien het veld verplicht is. Gebruik 1 voor verplichte ve
 
 <br/>
 
-- Select-field
+- **Select-field**:
+  Dit is een standaard Kirby-veld. Om dit veld correct te laten werken, zijn enkele extra configuratieopties vereist.
+  
+  ComponentsOptions:
+  ``` php
+  'componentsOptions' => [
+      'type' => 'select',
+      'entity' => true,
+      'apiEndpoint' => '/_logic/codetable?name=roles&language={language}&from_cache=0',
+      'textValue' => 'value',
+      'valueValue' => 'id',
+      'valueSelector' => 'id',
+      'inputType' => 'select',
+      'sendType' => 'object',
+      'options' => []
+  ],
+  ```
+  Eigenschap | Beschrijving
+  |:-----|:----
+  type | Dit moet altijd select zijn.
+  entity | Geeft aan of de opties afkomstig zijn van een externe entity of recordtype.
+  apiEndpoint | Endpoint waarmee de beschikbare opties worden opgehaald. Enkel vereist wanneer entity op true staat.
+  textValue | Naam van het veld in de ontvangen data dat als zichtbare tekst in de dropdown wordt weergegeven. Enkel vereist wanneer entity op true staat.
+  valueValue | Naam van het veld in de ontvangen data dat als waarde van de optie wordt gebruikt. Enkel vereist wanneer entity op true staat.
+  valueSelector | Enkel nodig wanneer sendType gelijk is aan strings en de waarde uit een object opgehaald moet worden. In de meeste gevallen niet nodig en enkel van toepassing als de entity op true staat. 
+  inputType | Moet altijd select zijn. Wordt gebruikt wanneer het veld deel uitmaakt van een complex veld en entity op true staat.
+  sendType | Bepaalt hoe de waarde naar Solis wordt verstuurd. Mogelijke waarden zijn object of strings. Enkel van toepassing als het veld deel uitmaakt van een complex veld en de entity op true staat.
+  options | Vast ingestelde opties. Enkel gebruiken wanneer entity op false staat. Verwacht een array van objecten met een label en value.
+
+  DataFields:
+  Voorzie deze configuratie altijd, ook op toevoegschermen waar ze niet rechtstreeks gebruikt wordt. Wanneer reeds opgeslagen data geladen wordt, bepaalt deze configuratie welke velden gebruikt worden om de geselecteerde waarde opnieuw op te bouwen.
+  ``` php
+  'dataFields' => [
+        'id' => 'id',
+        'text' => 'value',
+        'value' => 'id',
+    ],
+  ```
+
+  Meer informatie:
+  Meer informatie over een select veld vind je in de officiële documentatie: [handleiding](https://lab.getkirby.com/public/lab/components/fields/select).
+
+  <br/>
   
 - **Toggle-field** <br/>
     Dit is een standaard Kirby-veld. Alle beschikbare opties vind je in de officiële documentatie: [handleiding](https://lab.getkirby.com/public/lab/components/fields/toggle). Extra configuratie kan worden meegegeven via `componentsOptions`.
@@ -319,11 +357,279 @@ Min | Enkel toevoegen indien het veld verplicht is. Gebruik 1 voor verplichte ve
 <br/>
 
 - Toggles-field
+  Dit is een standaard Kirby-veld. Om dit veld correct te laten werken, zijn enkele extra configuratieopties vereist.
+  ``` php
+  'componentsOptions' => [
+      'grow' => true,
+      'options' => [
+          [
+              'value' => '',
+              'text' => '',
+              'icon' => '',
+          ],
+      ],
+      'labels' => true,
+  ],
+  ```
+  Eigenschap | Beschrijving
+  |:-----|:----
+  grow | De toggle zal de options over de volledige breedte tonen
+  options | Geef een array met options mee die telkens een value, label en eventueel een icoon bevat
+  labels | Er wordt in de toggle ook tekstueel meegegeven wat de optie is (label)
+  
+  Meer informatie over een toggles veld vind je in de officiële documentatie: [handleiding](https://lab.getkirby.com/public/lab/components/fields/toggle).
+
+  <br/>
+  
 - Entity
+  Dit is een speciaal ontwikkeld veldtype om Solis data te behandelen. Dit veld maakt het mogelijk om entitities te creëeren of selecteren afhankelijk van het gekozen subType (relation field of add multiple values field)
+  
   - Relation-field
+    Dit veld maakt het mogelijk om meerdere id's van andere entiteittypes als value op te slaan. De gebruiker zal door de entiteiten kunnen zoeken. Je kan een max en min meegeven.
+    Voeg volgende velden extra toe:
+    ``` php
+    'subType' => 'relation-field',
+    'componentsOptions' => [
+        'imageValue' => 'content_url',
+        'textValue' => 'image_object_name|filename',
+        'infoValue' => 'id',
+        'recordType' => 'imageObject',
+        'min' => 1
+    ],
+    'dataFields' => [
+        'id' => 'id',
+        'text' => ['image_object_name', 'id'],
+        'info' => 'id',
+        'image' => [
+            'src' => 'content_url'
+        ]
+    ],
+    ```
+    Eigenschap | Beschrijving
+    |:-----|:----
+    imageValue (componentsOptions) | Indien er een imageurl aanwezig is in de opgevraagde data
+    textValue (componentsOptions) | veld voor het tonen van het label | staat voor of en . staat voor dieper in een structuur graven
+    infoValue (componentsOptions) | veld voor het opslagen van de value | staat voor of en . staat voor dieper in een structuur graven. (vaak is dit de id)
+    recordtype (componentsOptions) | het record type waar uitgekozen mag worden (geef naam van hoe het in de search api kan bevraagd wordenà
+    min / max (componentsOptions) | Moet er een entiteit gekozen worden en hoeveel.
+    id (dataFields) | als er al values zijn opgeslagen hoe komen we aan de value (niet van toepassing bij add screen)
+    text (dataFields) | als er al values zijn opgeslagen hoe komen we aan het label (niet van toepassing bij add screen)
+    info (dataFields) | als er al values zijn opgeslagen hoe komen we aan de value (niet van toepassing bij add screen)
+    image (dataFields) | als er al values zijn opgeslagen hoe komen we aan de image (niet van toepassing bij add screen of als er geen afbeelding getoond is) - dit moet een array zijn zoals aangegeven is hierboven.
+    
   - Add-multiple-values-field
+    Zoals bovenaan beschreven moet niet voor elk recordtype aparte schermen voor het beheren van dit recordtype zijn. Soms moet je dit gewoon bij een ander recordtype aanmaken en niet meer hergebruiken. Denk maar aan identifiers, ...
+
+    Voeg volgende dingen toe om dit te laten werken:
+    ``` php
+      'componentsOptions' => [
+          'url' => '/records/comments/comment',
+          'singularTypeName' => 'Comment',
+          'fields' => [
+              'value' => [
+                  'label' => 'Value',
+                  'type' => 'text',
+                  'required' => true,
+              ]
+          ],
+          'save' => true,
+      ],
+      'dataFields' => [
+          'value' => 'value'
+      ],
+    ```
+    Eigenschap | Beschrijving
+    |:-----|:----
+    url (componentsOptions) | de request die uitgevoerd moet worden voor toevoegen of bewerken
+    singularTypeName (componentsOptions) | enkelvoudige naam van het type
+    fields (componentsOptions) | Array van de velden die dit type bevat
+    dataFields | Reeds bestaande records van dit type hoe wordt de data voor dat subveld bekomen
+    
+    <br/>
+    
+- multiple_records_of_type
+  Dit is een speciaal ontwikkeld veldtype om Solis data te behandelen. DIt veld maakt het mogelijk om meerdere velden van hetzelfde type toe tevoegen aan één value. Bijvoorbeeld je moet meerdere url's kunnen toevoegen aan het veld links.
+  Je kan dit veld laten terugkomen in een `add-multiple-values-field` of gewoon als veld toevoegen.
+  
+  Als veld voeg je volgende velden nog toe via `componentsOptions`:
+  ``` php
+    'componentsOptions' => [
+      'inputType' => 'string,
+      'valueSelector' => null,
+      'sendType' => 'strings',
+  ],
+  ```
+  Eigenschap | Beschrijving
+  |:-----|:----
+
+  In een `add-multiple-values-field` veld:
+  ``` php
+  'fieldvalue' => [
+      'label' => 'Url',
+      'type' => 'multiple_records_of_type',
+      'inputType' => 'string',
+      'valueSelector' => null,
+      'sendType' => 'strings',
+  ]
+  ```
+  Eigenschap | Beschrijving
+  |:-----|:----
+  fieldValue | id van het veld waar het in opgeslagen wordt
+  label | het label van het veld
+  type | Dit is altijd multiple_records_of_type
+  inputType | Veld type dat je meerdere malen kan invullen. (simpele velden zoals text, textarea, number, ...)
+  valueSelector | Bij iets complexere velden om de juiste velden weg te schrijven. Dit is meestal null
+  sendType | export value type van het veld (array, string, ...)
+  
+<br/>
 
 Andere basisvelden van Kirby zullen mogelijks ook werken maar deze zijn nog niet getest. Bekijk de andere Kirby velden [hier](https://lab.getkirby.com/public/lab/components/fields/checkboxes)
+
+<br/>
+
 ### Views
+Maak per recordtype dat een eigen pagina's krijgt een map aan. In elke map zitten 3 files (1 voor elk pagina type - create, details, list). In deze file ga je ervoor zorgen dat de correcte data naar de correcte view gestuurd zal worden. De nodige data uit solis zal via api opgehaald worden in deze files. Een [voorbeeld](https://github.com/libis/kirby-plugin-solis/tree/main/views/example)
+
+<br/>
+
+#### Create 
+De file dient voor de gegevens van het toevoegen van een record van het type door te geven naar het scherm. [Voorbeeld](https://github.com/libis/kirby-plugin-solis/blob/main/views/example/addExampleRecord.php)
+
+Werking
+Wanneer een gebruiker naar het pattern (ingesteld in de deze file) navigeert (deze moet je aanpassen):
+
+De configuratie wordt geladen uit pageStructures/... (jouw file met de nodige data)
+De benodigde data voor het formulier wordt opgehaald:
+- main
+- tabs
+- amountOfColumns
+- fields
+
+De rol van de ingelogde gebruiker wordt gecontroleerd. Enkel gebruikers met een toegestane rol krijgen toegang tot het formulier.
+Gebruikers zonder toestemming worden doorgestuurd naar panel/records of een naar jouw gekozen plaats.
+
+Configureerbare velden
+- pattern
+- Allowed roles ($allowed array)
+- structure (include hier de file uit pagestructures)
+- Breadcrumb label (Bepaalt de tekst die bovenaan in de navigatie wordt weergegeven.) vb.:
+```PHP
+'breadcrumb' => [
+  [
+    'label' => str_replace("{type}", "About", t("libis.solis.nav.add.record")),
+    'link' => 'records/example/toevoegen'
+  ]
+]
+```
+In dit voorbeeld wordt "About" gebruikt als recordtype. Vervang deze waarde door de gewenste naam.
+
+<br/>
+
+### Detail (edit) pagina
+Deze file dient voor de detail gegevens van 1 record van dit recordtype voor het bekijken of aanpassen van dit record door te geven aan het scherm. [Voorbeeld](https://github.com/libis/kirby-plugin-solis/blob/main/views/example/exampleRecord.php)
+
+Werking
+Wanneer een gebruiker naar het pattern (ingesteld in de deze file) navigeert (deze moet je aanpassen):
+
+De taal die gevraagd wordt wordt opgehaald uit de url (als deze is opgegeven en anders nl (dit kan aangepast worden).
+Het item wordt via de api opgevraagd. Pas de request aan naar het juiste type / diepte / ....
+
+De configuratie wordt geladen uit pageStructures/... (jouw file met de nodige data)
+De benodigde data voor het formulier wordt opgehaald:
+- main
+- tabs
+- amountOfColumns
+- fields
+
+Configureerbare velden
+- pattern
+- default taal
+- query (api request)
+- structure (include hier de file uit pagestructures)
+- Breadcrumb label (Bepaalt de tekst die bovenaan in de navigatie wordt weergegeven.) vb.:
+```PHP
+'breadcrumb' => [
+  [
+    'label' => 'About: ' . (isset($item[0]->tag->tag_name) ? $item[0]->tag->tag_name : ''),
+    'link' => 'records/example/toevoegen'
+  ]
+]
+```
+In dit voorbeeld wordt de tag naam van de bekomen data via api gebruikt gebruikt als recordtype. Vervang deze waarde door de gewenste waarde.
+
+<br/>
+
+#### List pagina
+Deze file dient voor een lijst te tonen van alle records die van dit type bestaan. [Voorbeeld](https://github.com/libis/kirby-plugin-solis/blob/main/views/example/exampleRecords.php)
+
+Werking
+Wanneer een gebruiker naar het pattern (ingesteld in de deze file) navigeert (deze moet je aanpassen):
+
+De configuratie wordt geladen uit pageStructures/... (jouw file met de nodige data)
+De benodigde data voor het formulier wordt opgehaald:
+- main
+- tabs
+- title and info selecctor
+- user data
+
+Configureerbare velden
+- pattern
+- structure (include hier de file uit pagestructures)
+- Breadcrumb label (Bepaalt de tekst die bovenaan in de navigatie wordt weergegeven.) vb.:
+```PHP
+'breadcrumb' => [
+  [
+    'label' => "About " . t("libis.solis.records"),
+    'link' => 'records/example/toevoegen'
+  ]
+]
+```
+In dit voorbeeld wordt "About" gebruikt als recordtype. Vervang deze waarde door de gewenste naam.
+
+<br/>
+
+#### Codetabellen
+Ook hier zijn codetabellen een uitzondering op de opbouw van de pagina's. [Voorbeeld](https://github.com/libis/kirby-plugin-solis/tree/main/views/codeTables) Er is namelijk maar 1 map voor alle codetabellen en deze map bevat maar 1 file.
+
+Werking
+Wanneer een gebruiker naar het pattern codetables gaat:
+
+De taal die gevraagd wordt wordt opgehaald uit de url (als deze is opgegeven en anders nl (dit kan aangepast worden).
+
+De configuratie wordt geladen uit pageStructures/... (jouw file met de nodige data)
+De benodigde data voor het formulier wordt opgehaald:
+- main
+- lijst van de codetables
+
+Er wordt door de codetables geloopt.
+Per codetables type wordt een request gedaan om alle opties op te halen. Pas de request aan indien nodig
+
+Configureerbare velden
+- default taal
+- structure (include hier de file uit pagestructures)
+- Breadcrumb label (Bepaalt de tekst die bovenaan in de navigatie wordt weergegeven.) vb.:
+```PHP
+'breadcrumb' => [
+  [
+    'label' => t("libis.solis.codeTables"),
+    'link' => 'records/example/toevoegen'
+  ]
+]
+```
+In dit voorbeeld wordt "Codetabbelen' vertaald in de juiste gevraagde taal. Pas aan naar wens.
+
+<br/>
+
+### area views
+Maak 1 php file aan genaamd views.php. Deze file zal een array returnen met alle php files uit de views map. Elke file voeg je toe op volgende manier:
+``` php
+require __DIR__ . '/../views/items/exampleRecords.php',
+```
+Een voorbeeld van deze return array vind je in [area-views/views.php](https://github.com/libis/kirby-plugin-solis/blob/main/area-views/views.php)
+
+<br/>
 
 ### Data-processing
+Maak per type een file aan. In deze file zal je 3 routes vinden (post, put, delete).
+
+Kopieer het [voorbeeld](https://github.com/libis/kirby-plugin-solis/blob/main/data-processing/example.php) en pas de gegevens zoals de url aan.

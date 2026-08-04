@@ -356,7 +356,7 @@ Min | Enkel toevoegen indien het veld verplicht is. Gebruik 1 voor verplichte ve
 
 <br/>
 
-- Toggles-field
+- **Toggles-field** <br/>
   Dit is een standaard Kirby-veld. Om dit veld correct te laten werken, zijn enkele extra configuratieopties vereist.
   ``` php
   'componentsOptions' => [
@@ -381,10 +381,10 @@ Min | Enkel toevoegen indien het veld verplicht is. Gebruik 1 voor verplichte ve
 
   <br/>
   
-- Entity
+- **Entity** <br/>
   Dit is een speciaal ontwikkeld veldtype om Solis data te behandelen. Dit veld maakt het mogelijk om entitities te creëeren of selecteren afhankelijk van het gekozen subType (relation field of add multiple values field)
   
-  - Relation-field
+  - Relation-field <br/>
     Dit veld maakt het mogelijk om meerdere id's van andere entiteittypes als value op te slaan. De gebruiker zal door de entiteiten kunnen zoeken. Je kan een max en min meegeven.
     Voeg volgende velden extra toe:
     ``` php
@@ -417,7 +417,7 @@ Min | Enkel toevoegen indien het veld verplicht is. Gebruik 1 voor verplichte ve
     info (dataFields) | als er al values zijn opgeslagen hoe komen we aan de value (niet van toepassing bij add screen)
     image (dataFields) | als er al values zijn opgeslagen hoe komen we aan de image (niet van toepassing bij add screen of als er geen afbeelding getoond is) - dit moet een array zijn zoals aangegeven is hierboven.
     
-  - Add-multiple-values-field
+  - Add-multiple-values-field <br/>
     Zoals bovenaan beschreven moet niet voor elk recordtype aparte schermen voor het beheren van dit recordtype zijn. Soms moet je dit gewoon bij een ander recordtype aanmaken en niet meer hergebruiken. Denk maar aan identifiers, ...
 
     Voeg volgende dingen toe om dit te laten werken:
@@ -447,7 +447,7 @@ Min | Enkel toevoegen indien het veld verplicht is. Gebruik 1 voor verplichte ve
     
     <br/>
     
-- multiple_records_of_type
+- **multiple_records_of_type** <br/>
   Dit is een speciaal ontwikkeld veldtype om Solis data te behandelen. DIt veld maakt het mogelijk om meerdere velden van hetzelfde type toe tevoegen aan één value. Bijvoorbeeld je moet meerdere url's kunnen toevoegen aan het veld links.
   Je kan dit veld laten terugkomen in een `add-multiple-values-field` of gewoon als veld toevoegen.
   

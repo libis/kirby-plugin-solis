@@ -416,7 +416,9 @@ Min | Enkel toevoegen indien het veld verplicht is. Gebruik 1 voor verplichte ve
     text (dataFields) | als er al values zijn opgeslagen hoe komen we aan het label (niet van toepassing bij add screen)
     info (dataFields) | als er al values zijn opgeslagen hoe komen we aan de value (niet van toepassing bij add screen)
     image (dataFields) | als er al values zijn opgeslagen hoe komen we aan de image (niet van toepassing bij add screen of als er geen afbeelding getoond is) - dit moet een array zijn zoals aangegeven is hierboven.
-    
+
+    <br/>
+
   - Add-multiple-values-field <br/>
     Zoals bovenaan beschreven moet niet voor elk recordtype aparte schermen voor het beheren van dit recordtype zijn. Soms moet je dit gewoon bij een ander recordtype aanmaken en niet meer hergebruiken. Denk maar aan identifiers, ...
 

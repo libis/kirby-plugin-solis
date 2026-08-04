@@ -6,6 +6,10 @@
 ---
 
 ## ✨ Features
+- **Create**: Voeg nieuwe entiteiten en relaties toe aan de Solis-triplestore.
+- **Update**: Pas bestaande data aan zonder verlies van modelconsistentie.
+- **Delete**: Verwijder data die niet langer nodig is.
+- **Solis Integration**: Werkt rechtstreeks op de triplestore waarop het Solis-datamodel is gebaseerd.
 
 <br/>
 
@@ -27,6 +31,20 @@
 <br/>
 
 ## Instalatie
+### Docker
+Laat de plugin in je docker image draaien en zet enkel de pagina's die je wilt aanpassen of bijcreëren (zie project structuur) in je project zelf.
+```php
+ARG KIRBY_PLUGIN_FORMS_BRANCH=main
+RUN wget --no-verbose "https://github.com/libis/kirby-plugin-solis/archive/${KIRBY_PLUGIN_SOLIS_BRANCH}.zip" -O /var/www/html/site/plugins/solis.zip \
+    && unzip -q /var/www/html/site/plugins/solis.zip -d /var/www/html/site/plugins/ \
+    && rm /var/www/html/site/plugins/solis.zip \
+    && mv /var/www/html/site/plugins/kirby-plugin-solis-${KIRBY_PLUGIN_SOLIS_BRANCH} /var/www/html/site/plugins/kirby-solis \
+    && chown -R www-data:www-data /var/www/html/site/plugins/kirby-solis
+```
+<br/>
+
+### Manually
+Clone de Github repository en kopieer alle files naar je eigen project structuur in `/site/plugins`.
 
 <br/>
 

@@ -90,13 +90,22 @@ data-processing | Bevat logica om data te transformeren of valideren voordat dez
 
 <br/>
 
-### PageStructures
-Per record type waar je een pagina wilt voorzien maak je een file aan in de map `pageStructures`. Niet alle record types (entiteiten) moeten een pagina hebben (sommige recordtypes hangen specifiek aan een ander record type vast en zal niet voorkomen in een ander record. In deze gevallen hoef je hier geen apparte pagina dus ook geen pageStructure voor te maken.
+### area views
 
-Zo een file bevat alle nodige data om een creëer pagina + info (aanpassen) pagina + pagina met een lijst van alle record van dat type te creëren. Deze pagina is een return array in PHP. 
-Deze array bevat wat algemene data die voor alle pagina's van toepassing zijn denk maar aan een link een record te bekomen, de plural solis entiteit naam, enkelvoud naam en hoe deze entiteit opgezocht kan worden via de search api.
-Buiten de algemene info zal je data kunnen meegeven voor de specifieke data denk maar aan welke tabs staan er bovenaan op deze pagina, welke velden moeten ingevuld zijn voor het creeëren van het record. En welke velden heeft het record als je het in detail bekijkt. Een voorbeeld van zo een pagina vind je in de map pageStructures [exampleStructure](https://github.com/libis/kirby-plugin-solis/blob/main/pageStructures/exampleStructure.php)
-Alle codetabellen entiteiten zijn hier wel een uitzondering op deze structuur is net wat anders opgebouwd. Hieronder ga ik verder in op hoe je zo een pagina opbouwt.
+<br/>
+
+### PageStructures
+Voor elk recordtype waarvoor een beheerpagina beschikbaar moet zijn, maak je een PHP-bestand aan in de map pageStructures.
+
+Niet elk SOLIS-recordtype vereist een eigen pagina. Sommige entiteiten bestaan uitsluitend als onderdeel van een andere entiteit en worden nooit afzonderlijk beheerd. Voor deze recordtypes hoef je geen aparte page structure aan te maken.
+
+Elke page structure bestaat uit een PHP-bestand dat een array retourneert. Deze configuratie wordt gebruikt om automatisch:
+
+- een overzichtspagina met alle records van een bepaald type te genereren;
+- een pagina voor het aanmaken van nieuwe records te genereren;
+- een detailpagina voor het bekijken en bewerken van bestaande records te genereren.
+
+<br/>
 
 #### Entiteit
 
@@ -108,5 +117,3 @@ Alle codetabellen entiteiten zijn hier wel een uitzondering op deze structuur is
 ### Views
 
 ### Data-processing
-
-### area views

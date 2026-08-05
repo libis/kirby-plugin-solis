@@ -395,4 +395,8 @@ export default {
   align-items: center;
   margin-bottom: 25px;
 }
+
+.id-section .k-label {
+  flex: 0;
+}
 </style>

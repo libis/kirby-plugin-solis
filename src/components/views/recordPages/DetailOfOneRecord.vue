@@ -32,8 +32,7 @@
         </div>
         <div class="id-section">
           <k-label>Id:</k-label>
-          {{ recordData[0] }}
-          {{ recordData[0][['id']] }}
+          <p>{{ recordData[0][['id']] }}</p>
         </div>
         <div v-if="amountOfColumns == 2" class="main-info k-grid k-sections" data-variant="columns">
           <div class="main-info__left-main-info left-main-info k-column" style="--width: 2/3;">

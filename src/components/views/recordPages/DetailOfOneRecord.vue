@@ -397,6 +397,6 @@ export default {
 }
 
 .id-section .k-label {
-  flex: 0;
+  flex: none;
 }
 </style>

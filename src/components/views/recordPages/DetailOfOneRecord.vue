@@ -30,6 +30,10 @@
             Data wordt verwerkt...
           </div>
         </div>
+        <div class="id-section">
+          <k-label>Id:</k-label>
+          {{ recordData[0].id }}
+        </div>
         <div v-if="amountOfColumns == 2" class="main-info k-grid k-sections" data-variant="columns">
           <div class="main-info__left-main-info left-main-info k-column" style="--width: 2/3;">
             <div class="k-fieldset">
@@ -383,5 +387,11 @@ export default {
   font-size: 2rem;
   display: block;
   margin-top: .5rem;
+}
+
+.id-section {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 </style>

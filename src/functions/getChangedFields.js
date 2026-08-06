@@ -1,3 +1,4 @@
+//only give back the fields that are changed so not everyting goed to the backend
 export function getChangedFields(original, current) {
   const changed = {};
 

@@ -120,6 +120,7 @@ export default {
         }
       }
     },
+    // get the first page of the asked record type via an internal api url
     async fetchItems(page, q = "") {
       const query = q !== "" ? "q=" + q + "&" : "";
       let url = `/solis-records?${query}page=${page}&limit=${this.pagination.limit}&recordType=${this.mainInfo.searchType}`;

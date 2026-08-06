@@ -82,6 +82,7 @@ export default {
   },
   computed: {
     selectedProxy: {
+      // handle the a set of given selected record from custom panel view or page and format to the correct readable way
       get() {
         if (this.kirbyPage) {
           return this.parseKirbyYamlToArray(this.value);
@@ -91,6 +92,7 @@ export default {
         if (selected && typeof selected === 'object') return selected;
         return [];
       },
+      // when there is selcted record update the format based on if it is send to a page or a custom view
       set(next) {
         const safe = JSON.parse(JSON.stringify(next ?? []));
         if (this.kirbyPage) {
@@ -101,6 +103,7 @@ export default {
         }
       },
     },
+    // check if they selected enough or not to much records
     isInvalid() {
       const count = this.selectedCount;
       const minOk = this.min ? count >= this.min : true;
@@ -116,12 +119,14 @@ export default {
       if (items && typeof items === 'object') return [items];
       return [];
     },
+    // show the amount of chosen records
     selectedCount() {
       const items = this.selectedProxy;
       return Array.isArray(items) ? items.length : (items ? 1 : 0);
     },
   },
   methods: {
+    // when users want to update their selection handle opening and closing a dialog
     openDialog() {
       if(this.disabled == true) return;
       this.tempSelected = [...this.normalizedSelected];
@@ -151,6 +156,7 @@ export default {
       this.tempSelected = [];
       this.openDialogValue = false;
     },
+    // the object can update in order
     handleSort(event) {
       this.selectedProxy = event;
     },

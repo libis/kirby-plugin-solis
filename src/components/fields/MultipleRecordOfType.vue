@@ -55,12 +55,14 @@ export default {
         };
     },
     methods: {
+        //warn parent of change
         emitChange() {
             if(this.disabled == true) return;
             this.$emit("input", this.inputs);
             this.$emit("change:record", this.inputs);
         },
 
+        //when users add an extra value check the entered data and add it to the list and warn the parent
         addInput() {
             if(this.disabled == true) return;
             if (this.valueSelector == null) {
@@ -80,6 +82,7 @@ export default {
 
             this.emitChange();
         },
+        // when user edit a excisting record check if everything is still in the correct format and warn the parent
         onInputChange(index, value) {
             if(this.disabled == true) return;
             if (this.valueSelector == null) {
@@ -92,6 +95,7 @@ export default {
             }
             this.emitChange();
         },
+        // delete the item from the list and warn the parent
         remove(index) {
             if(this.disabled == true) return;
             this.inputs = this.inputs.filter((_, i) => i !== index);

@@ -1,3 +1,4 @@
+// do an internal api call to get all the options from the external api
 export async function fetchApiOptions(apiEndpoint, language, textKey, valueKey) {
   const apiUrl = apiEndpoint.replace('{language}', language);
 

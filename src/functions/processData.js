@@ -1,3 +1,4 @@
+// stript dangerous data
 export function sanitizeText(value) {
   if (typeof value !== 'string') return value;
   return value
@@ -7,7 +8,7 @@ export function sanitizeText(value) {
     .replace(/javascript:/gi, '');
 }
 
-
+// check alle the data if the format is correct if required fields are filled in correct -> add errors if not correct
 export function validateData(data, fields, t = (k) => k) {
   const errors = [];
 
@@ -87,6 +88,7 @@ export function validateData(data, fields, t = (k) => k) {
   return errors.length ? errors : true;
 }
 
+// format the data for complex fields to the format the backend accept some data comes in different then it needs to write to the backend
 export function formatData(data, fields) {
   const formattedData = {};
 

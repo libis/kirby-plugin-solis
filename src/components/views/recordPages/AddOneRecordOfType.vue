@@ -150,7 +150,7 @@ export default {
       visibleFields.forEach(field => {
         const value = this.formData[field.name];
 
-        // Check verplichte velden
+        // Check required fields
         if (field.min === 1 && (value === null || value === '' || value === undefined)) {
           allChanged = false;
         }
@@ -213,6 +213,7 @@ export default {
       });
       return currentData;
     },
+    //validate the entered data if correct send a request to the correct url of the backend that will handle the creation
     async save() {
       this.isSaving = true;
       const visibleFields = this.fields.filter(field => this.shouldShow(field));

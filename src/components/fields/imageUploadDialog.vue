@@ -100,9 +100,11 @@ export default {
     }
   },
   computed: {
+    // take the current selected files
     currentItem() {
       return this.pickedFiles[this.currentIndex] || null;
     },
+    // check if the entered files are correct of mimetype and extensions
     acceptFiles() {
       if(!this.fileTemplate || !this.fileTemplate.accept) return "";
 
@@ -127,20 +129,24 @@ export default {
     }
   },
   methods: { 
+    // when user wants to select files
     fileOpenSelect() {
       this.$refs.fileInput?.click();
     },  
+    //when user dropps a file or multiple files get it and format it
     onFilesDropped(files) {
       files = Array.from(files);
       this.pickedFiles = this.fileFormatter(files);
       this.currentIndex = 0;
     },
+    // when files are selected from device format them
     onFilesPicked(e) {
       const files = Array.from(e.target.files || []);
       this.pickedFiles = this.fileFormatter(files);
       this.currentIndex = 0;
       e.target.value = "";
     },
+    // get the needed data out of the images to save and check the file
     fileFormatter(files) {
       const now = Date.now();
       return files.map((file, i) => {
@@ -164,6 +170,7 @@ export default {
         };
       });
     },
+    // create an emty object of all the metadatafields that can be filled in
     EmptyMetaField() {
       const fields = this.meta || {};
       const output = {};
@@ -188,13 +195,16 @@ export default {
       }
       return output;
     },
+    //go the previous item to fill in the metadata
     prev() {
       if (this.currentIndex > 0) this.currentIndex--;
 
     },
+    //go the next item to fill in the metadata
     next() {
       if (this.currentIndex < this.pickedFiles.length - 1) this.currentIndex++;
     },
+    // if they decide to delete a record after chosing delete them out of the array
     onRemove(file) {
       if (!this.currentItem) return;
       const item = this.pickedFiles.splice(this.currentIndex, 1)[0];
@@ -202,9 +212,11 @@ export default {
       if (this.currentIndex >= this.pickedFiles.length)
         this.currentIndex = Math.max(0, this.pickedFiles.length - 1);
     },
+    // when they want to update the file name after uploading this will handle the rename
     onRename(name) {
       this.currentItem.name = name;
     },
+    // when they want to create imageobject from the uploaded filed check if the given files and metadata are correct if so add the files to a form and sent to api to handle the creation of the image and creation of the imageobjects
     async onSubmitFiles() {
       try {
         this.isUploading = true;

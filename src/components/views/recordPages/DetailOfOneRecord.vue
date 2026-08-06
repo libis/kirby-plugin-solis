@@ -188,6 +188,7 @@ export default {
     }
   },
   methods: {
+    // some field are only showing when an other field is active 
     shouldShow(field) {
       if (!field.when) return true;
 

@@ -74,12 +74,15 @@ export default {
     };
   },
   computed: {
+    // check if multiple is set or there is no items yet if canAdd is false the add button will disappear
     canAdd() {
       return this.multiple || this.data.length === 0
     },
+    // some people can not delete stuff so it will be disabled
     canDelete() {
       return this.disabled == false && this.delete == true
     },
+    // based on the fields a record has create the drawer fields for edit and add
     drawerFields() {
       if (!this.fields) return {};
       return Object.fromEntries(
@@ -94,6 +97,7 @@ export default {
   },
   watch: {
     value: {
+      // check if the value is updated (check deep)
       handler(newVal) {
         this.data = Array.isArray(newVal) ? [...newVal] : { ...newVal };
       },
@@ -101,12 +105,14 @@ export default {
     }
   },
   methods: {
+    // if there is a change let parent know there is something updated
     emitChange() {
       if(this.disabled == true) return;
       const output = Array.isArray(this.value) ? [...this.data] : { ...this.data };
       this.$emit("change:record", output);
       this.$emit("input", output);
     },
+    // if we add a new record we need some default values to add the new stuff to
     emptyValue() {
       if (!this.fields) return {};
       return Object.fromEntries(
@@ -119,6 +125,7 @@ export default {
         })
       );
     },
+    // when item is clicked to edit or to be created open the drawer and give the values with the fields so the drawer show correct data
     openDrawer(record = null) {
       if(this.disabled == true) return;
       const isEdit = !!record;
@@ -153,7 +160,8 @@ export default {
         }
       });
     },
-
+    // if the user saves (or create) the record the data will be validated and if correct there will be an api call to the backend to check a second time and send it to the database
+    // if save is oke show the new data otherwise show the error message
     async updateData(data, isEdit) {
       if(this.disabled == true) return;
       const errors = validateData(data, this.drawerFields);
@@ -224,6 +232,7 @@ export default {
 
       this.emitChange();
     },
+    // if people can delere a record and click on delete a popup will be shown where the user needs to comfirm the delete with entering the title
     openDeleteRecord(record) {
       if(this.disabled == true) return;
       if(this.canDelete == false) return;
@@ -239,6 +248,7 @@ export default {
         }
       })
     },
+    // if the title is filled in correctly and they want to delete send an api to the backend to delete the record from the item
     deleteRecord(record) {
       if(this.disabled == true) return;
       if(this.canDelete == false) return;

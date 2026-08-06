@@ -78,6 +78,7 @@ export default {
     window.removeEventListener('keydown', this.globalKeyListener);
   },
   methods: {
+    // check if the user wants to search a new set of records by entering the enter button on serach
     globalKeyListener(e) {
       if (e.key === 'Enter') {
         const active = document.activeElement;
@@ -87,9 +88,11 @@ export default {
       }
     },
     isSelected(id) {
+      // check if the record is active and selected or not to show the check or not
       return this.selected.some(item => item.id === id);
     },
 
+    // check or uncheck a object
     toggle(row) {
       const exists = this.selected.find(item => item.id === row.id);
       if (exists) {
@@ -98,9 +101,11 @@ export default {
         this.selected.push({ id: row.id, text: row.text, info: row.info, image: row.image, link: row.linkUrl, target: row.target });
       }
     },
+    // user is ready selecting items warn the parent of a new selection
     confirm() {
       this.$emit("confirm", this.selected);
     },
+    // send an internal api call to get the needed files or when someone has a query ask the new set of images
     async fetchItems(page, q = "") {
       const query = q !== "" ? "q=" + q + "&" : "";
       let url = `/solis-records?${query}page=${page}&limit=${this.pagination.limit}&recordType=${this.recordType}`;

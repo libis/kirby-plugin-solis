@@ -43,6 +43,7 @@ export default {
     this.objectMeta = this.fieldsArrayToObject(this.meta);
   },
   methods: {
+    // a component that let the user upload images
     openDialog() {
       this.openDialogValue = true;
     },    

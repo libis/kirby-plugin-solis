@@ -57,6 +57,7 @@ export default {
   },
   computed: {
     canEdit() {
+      // check if the user has the rights to update the records
       const edit = ['admin', 'supervisor', 'editor'];
       if(edit.includes(this.role.toLowerCase())) {
         return true;
@@ -65,6 +66,7 @@ export default {
         return false;
       }
     },
+    // check if the user has the correct rights to delete the records
     canDelete() {
       const edit = ['admin', 'supervisor'];
       if(edit.includes(this.role.toLowerCase())) {
@@ -76,6 +78,7 @@ export default {
     },
   },
   methods: {
+    // when user wants to edit or add a record open a pop up for entering and show if they create or edit it
     openPopUp(name, editRecord = null) {
       if(this.canEdit == false) return;
       const isEdit = !!editRecord;
@@ -116,6 +119,7 @@ export default {
         }
       });
     },
+    //handles an edit of a record and send a request to the backend that handles the edit to solis
     async editRecord(oldRecord, newRecord, name) {
       if(this.canEdit == false) return;
       const id = oldRecord.value.split('/').filter(Boolean).pop();
@@ -146,6 +150,7 @@ export default {
         this.$panel.error(error);
       }
     },
+    // check if the entered data is correct if so send to the backend to handle the request to solis
     async addRecord(record, name) {
       if(this.canEdit == false) return;
       const id = sanitizeText(record.record).replace(/\s+/g, '-');
@@ -176,6 +181,7 @@ export default {
         this.$panel.error(error);
       }
     },
+    // when a user wants to delete they need to accept they want to delete
     openDelete(item, type) {
       if(this.canDelete == false) return;
       this.$panel.dialog.open({
@@ -205,6 +211,7 @@ export default {
         }
       })
     },
+    // send a delete request to the backend that will handle a delete of the actual record
     async deleteRecord(item, type) {
       if(this.canDelete == false) return;
       try {

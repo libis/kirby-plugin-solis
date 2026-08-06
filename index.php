@@ -4,7 +4,7 @@ class HookBypass {
   public static bool $skipFileUpdateHook = false;
 }
 
-
+// check if entered data is safe if not show an error
 function sanitizeData($data, $allowedTags) {
   if (is_object($data)) {
       $objectVars = get_object_vars($data);
@@ -94,6 +94,7 @@ Kirby::plugin('libis/solis-records', [
     'file.changeName:before' => function (Kirby\Cms\File $file, string $name) {
       throw new Exception(t("libis.solis.error.rename.not.allowed"));
     },
+    // check if it is an image edit for an imageobject if so update also the imageobject and fill inhe metadata of the image
     'file.update:after' => function (Kirby\Cms\File $newFile, Kirby\Cms\File $oldFile) {
       if (HookBypass::$skipFileUpdateHook == true) {
         return; 
@@ -130,6 +131,7 @@ Kirby::plugin('libis/solis-records', [
         }
       }
     },
+    // if solis image is deleted delete also the image object
     'file.delete:before' => function (Kirby\Cms\File $file) {
       // change this if needed (change if the values of an image are not the same)
       if($file->template() == 'solisImageTemplate') {
@@ -146,6 +148,7 @@ Kirby::plugin('libis/solis-records', [
   'routes' => array_merge(
     require __DIR__ . '/data-processing/general.php',
     [
+      // get records of an specific type with a limit and sometimes a query to limit it
       [
         'pattern' => 'solis-records',
         'method' => 'GET',
@@ -243,6 +246,7 @@ Kirby::plugin('libis/solis-records', [
           }
         }
       ],
+      // handles a solis image upload and create with the metadat an image object
       [
         'pattern' => 'solis-custom-image-upload',
         'method' => 'POST',

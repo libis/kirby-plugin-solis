@@ -58,6 +58,7 @@
           </div>
         </div>
       </div>
+      <k-box class="small-message" v-if="smallMessage != ''" theme="positive" icon="check" :text="smallMessage"/>
     </k-view>
   </k-panel-inside>
 </template>
@@ -79,7 +80,8 @@ export default {
     return {
       currentCode: window.panel.language.code,
       formData: {},
-      isSaving: false
+      isSaving: false,
+      smallMessage: ""
     };
   },
   async created() {
@@ -249,7 +251,32 @@ export default {
           const result = await response.json();
 
           if (result.status === 'success') {
-            this.$panel.redirect(this.mainInfo.requestsInKirbyLink + '/' + result.result.data[0].id);
+            this.isSaving = false;
+
+            if(result.excist) {
+              this.smallMessage = this.$t('libis.record.already.excist');
+              setTimeout(() => {
+                this.smallMessage = "";
+
+                this.$nextTick(() => {
+                  this.$panel.redirect(
+                    this.mainInfo.requestsInKirbyLink + '/' + result.result.id
+                  );
+                });
+              }, 2000);
+            }
+            else {
+              this.smallMessage = this.$t('libis.record.created');
+              setTimeout(() => {
+                this.smallMessage = "";
+
+                this.$nextTick(() => {
+                  this.$panel.redirect(
+                    this.mainInfo.requestsInKirbyLink + '/' + result.result.data[0].id
+                  );
+                });
+              }, 2000);
+            }
           }
           else {
             this.isSaving = false;
@@ -297,6 +324,13 @@ export default {
   font-size: 2rem;
   display: block;
   margin-top: .5rem;
+}
+
+.small-message {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: auto;
 }
 
 </style>

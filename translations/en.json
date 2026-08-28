@@ -49,5 +49,8 @@
 
     "libis.solis.error.rename.not.allowed": "You are not allowed to change the name.",
     "libis.solis.error.page.of.imageupload": "The upload page does not exist.",
-    "libis.solis.no.rights.add": "You do not have permission to add this."
+    "libis.solis.no.rights.add": "You do not have permission to add this.",
+
+    "libis.record.already.excist": "A record with this information already exists.",
+    "libis.record.created": "Record created"
 }

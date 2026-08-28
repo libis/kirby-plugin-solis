@@ -49,5 +49,8 @@
 
     "libis.solis.error.rename.not.allowed": "Je mag de naam niet wijzigen.",
     "libis.solis.error.page.of.imageupload": "De uploadpagina bestaat niet.",
-    "libis.solis.no.rights.add": "Je hebt geen rechten om dit toe te voegen."
+    "libis.solis.no.rights.add": "Je hebt geen rechten om dit toe te voegen.",
+
+    "libis.record.already.excist": "Er bestaat al een record met deze informatie.",
+    "libis.record.created": "Record aangemaakt"
 }

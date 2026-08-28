@@ -49,5 +49,8 @@
 
     "libis.solis.error.rename.not.allowed": "Vous n'êtes pas autorisé à modifier le nom.",
     "libis.solis.error.page.of.imageupload": "La page de téléchargement n'existe pas.",
-    "libis.solis.no.rights.add": "Vous n'avez pas l'autorisation d'ajouter ceci."
+    "libis.solis.no.rights.add": "Vous n'avez pas l'autorisation d'ajouter ceci.",
+
+    "libis.record.already.excist": "Un enregistrement avec ces informations existe déjà.",
+    "libis.record.created": "Enregistrement créé"
 }

@@ -354,6 +354,42 @@ Kirby::plugin('libis/solis-records', [
           }
         }
       ],
+       // get records of an specific type with a limit and sometimes a query to limit it
+      [
+        'pattern' => 'create-fields-record',
+        'method' => 'GET',
+        'action' => function () {
+          $file = get('file', null);
+
+          if($file != null) {
+            if(kirby()->user() && kirby()->user()->isLoggedIn() && kirby()->user()->isValid() && (kirby()->user()?->role()->id() == 'editor' || kirby()->user()?->role()->id() == 'supervisor' || kirby()->user()->isAdmin())) {
+              $structure = include __DIR__ . '/pageStructures/' . $file . '.php';
+              if($structure) {
+                $fields = $structure['add']['fields'];
+
+                if($fields) {
+                  return[
+                    'status' => 'success',
+                    'fields' => $fields
+                  ];
+                }
+                else {
+
+                }
+              }
+              else {
+
+              }
+            }
+            else {
+
+            }
+          }
+          else {
+
+          }
+        }
+      ]
     ]
   ),
   'translations' => (function () {

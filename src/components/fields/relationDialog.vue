@@ -16,6 +16,10 @@
               :title="isSelected(row.id) ? $t('remove') : $t('select')" @input="toggle(row)"  />
           </template>
         </k-collection>
+
+        <div v-if="create" class="create-new-record-btn">
+          <k-relation-create-dialog :createdType="createdType" :label="label" :createUrl="createUrl" @select="selectNewCreated(data)"/>
+        </div>
       </div>
 
       <div class="k-dialog-footer">
@@ -53,6 +57,19 @@ export default {
       default: ''
     },
     recordType: String,
+    create: {
+      type: Boolean,
+      default: false
+    },
+    createdType: {
+      type: String,
+      default: ""
+    },
+    label: String,
+    createUrl: {
+      type: String,
+      default: "" 
+    }
   },
   data() {
     return {
@@ -101,6 +118,30 @@ export default {
         this.selected.push({ id: row.id, text: row.text, info: row.info, image: row.image, link: row.linkUrl, target: row.target });
       }
     },
+
+    //user created a new record -> get a renew of the search and select
+    selectNewCreated(item) {
+      this.search();
+      const paths = this.textValue.split('|').map(p => p.trim());
+      const text = paths.map(path => this.getNestedValue(item.data[this.languageCode] || {}, path)).find(val => val !== undefined && val !== null && val !== '') || '';
+
+      const newItem = {
+        text: text,
+        info: this.getNestedValue(item.data[this.languageCode] || {}, this.infoValue) || '',
+        ...(this.getNestedValue(item.data[this.languageCode] || {}, this.imageValue)
+          ? {
+            image: {
+              src: this.getNestedValue(item.data[this.languageCode] || {}, this.imageValue)
+            }
+          } : {}),
+        id: item.id.split('/').filter(Boolean).pop(),
+        ...(this.linkValue != ''
+          ? {linkUrl: this.mapUrl(item.id.split('/').filter(Boolean).pop(), this.linkValue), target: '_blank'}
+          : {}),
+      };
+      this.selected.push(newItem);
+    },
+
     // user is ready selecting items warn the parent of a new selection
     confirm() {
       this.$emit("confirm", this.selected);
@@ -180,5 +221,10 @@ export default {
 
 .k-collection.k-dialog-item-collection .k-item .k-item-content {
   width: 90%;
+}
+
+.create-new-record-btn {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>

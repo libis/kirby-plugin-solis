@@ -22,7 +22,7 @@
     
     <k-dialog-relation v-if="openDialogValue" :disabled="disabled" :open="openDialogValue" :values="tempSelected" :baseUrl="baseUrl"
       :languageCode="currentCode" :textValue="textValue" :infoValue="infoValue" :imageValue="imageValue" :linkValue="linkValue"
-      :recordType="recordType" @close="handleClose" @confirm="handleConfirm" />
+      :recordType="recordType" :create="create" :createdType="createdType" :createUrl="createUrl" :label="label" @close="handleClose" @confirm="handleConfirm" />
   </k-field>
 </template>
 
@@ -71,6 +71,18 @@ export default {
     sortable: {
       type: Boolean,
       default: false
+    },
+    create: {
+      type: Boolean,
+      default: false
+    },
+    createdType: {
+      type: String,
+      default: ""
+    },
+    createUrl: {
+      type: String,
+      default: "" 
     }
   },
   data() {
@@ -87,7 +99,8 @@ export default {
         if (this.kirbyPage) {
           return this.parseKirbyYamlToArray(this.value);
         }
-        const selected = this.selected;
+
+        const selected = this.value ?? this.selected;
         if (Array.isArray(selected)) return selected;
         if (selected && typeof selected === 'object') return selected;
         return [];
@@ -100,6 +113,7 @@ export default {
         } 
         else {
           this.$emit('update:selected', safe);
+          this.$emit('input', safe);
         }
       },
     },

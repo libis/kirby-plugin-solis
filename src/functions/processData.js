@@ -35,8 +35,8 @@ export function validateData(data, fields, t = (k) => k) {
 
     // Min/Max check voor arrays
     if (Array.isArray(value)) {
-      const minOption = field.componentsOptions?.min;
-      const maxOption = field.componentsOptions?.max;
+      const minOption = field.componentsOptions?.min ?? field.min;
+      const maxOption = field.componentsOptions?.max ?? field.max;
       const length = value.length;
 
       if (minOption != null && !Number.isNaN(Number(minOption)) && length < Number(minOption)) {
@@ -56,8 +56,8 @@ export function validateData(data, fields, t = (k) => k) {
       if (Number.isNaN(num)) {
         addError(field, t("libis.solis.error.valid.number", { label: label }));
       } else {
-        const min = field.componentsOptions?.min;
-        const max = field.componentsOptions?.max;
+        const min = field.componentsOptions?.min ?? field.min;
+        const max = field.componentsOptions?.max ?? field.max;
         if (min != null && num < Number(min)) {
           addError(field, t("libis.solis.error.number.min", { label: label, min: min }));
         }
@@ -113,7 +113,7 @@ export function formatData(data, fields) {
         field.type === 'add_multiple_values_field' || (field.type === 'entity' && field.subType === 'relation-field') ||
         field.type === 'relation_field';
 
-      const hasMaxConstraint = field.componentsOptions?.max != null;
+      const hasMaxConstraint = field.componentsOptions?.max != null || field.max != null;
       const multipleRecordOfType = (field.type === 'entity' && field.subType === 'multiple-records-of-type') || field.type === 'multiple_records_of_type';
       const imageSelectField = field.type === 'entity' && field.subType === 'image-select-field';
 
@@ -122,7 +122,10 @@ export function formatData(data, fields) {
           .map(item => (item && typeof item === 'object' && item.id ? { id: item.id } : null))
           .filter(Boolean);
 
-        formattedData[fieldName] = field.componentsOptions?.max === 1 ? ids[0] || null : ids;
+        formattedData[fieldName] =
+          (field.componentsOptions?.max ?? field.max) === 1
+            ? ids[0] || null
+            : ids;
       }
       else if (multipleRecordOfType) {
         if (field.sendType && field.sendType == 'strings') {

@@ -1,6 +1,7 @@
 import Records from "./components/views/Records.vue";
 import relationField from "./components/fields/relationField.vue";
 import relationDialog from "./components/fields/relationDialog.vue";
+import relationCreateDialog from "./components/fields/relationCreateDialog.vue";
 import LanguageDropdownButton from "./components/buttons/LanguageDropdownButton.vue";
 import AddMultipleValuesField from "./components/fields/AddMultipleValuesField.vue";
 import MultipleRecordOfType from "./components/fields/MultipleRecordOfType.vue";
@@ -19,6 +20,7 @@ panel.plugin("libis/solis-records", {
 		"k-list-of-records-view": ListOfRecords,
 		"k-relation-field": relationField,
 		"k-dialog-relation": relationDialog,
+		"k-relation-create-dialog": relationCreateDialog,
 		"k-add-multiple-values-field": AddMultipleValuesField,
 		"k-multiple-records-of-type": MultipleRecordOfType,
 		"k-codetables-view": CodeTablesView,
@@ -29,6 +31,7 @@ panel.plugin("libis/solis-records", {
 		add_multiple_values_field: AddMultipleValuesField,
 		relationDialog: relationField,
 		multiple_records_of_type: MultipleRecordOfType,
-		imageUpload: ImageUpload
+		imageUpload: ImageUpload,
+		relation_field: relationField,
 	},
 });

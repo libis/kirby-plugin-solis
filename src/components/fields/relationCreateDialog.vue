@@ -121,13 +121,6 @@ export default {
         console.error("Unable to load fields", error);
       }
     },
-    // if there is a change let parent know there is something updated
-    emitChange() {
-      if(this.disabled == true) return;
-      const output = Array.isArray(this.value) ? [...this.data] : { ...this.data };
-      this.$emit("change:record", output);
-      this.$emit("input", output);
-    },
     // if we add a new record we need some default values to add the new stuff to
     async emptyValue() {
       const fields = await this.drawerFields;
@@ -147,7 +140,6 @@ export default {
     },
     // when item is clicked to edit or to be created open the drawer and give the values with the fields so the drawer show correct data
     async openDrawer() {
-      if(this.disabled == true) return;
       const value = await this.emptyValue();
 
       this.$panel.drawer.open({
@@ -194,7 +186,7 @@ export default {
       const formatedData = formatData(data, normalizedFields);
 
       try {
-        const response = await fetch(this.createUrl, {
+        const response = await fetch(this.createUrl + '?language=' + this.currentCode, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -208,10 +200,10 @@ export default {
         if (result.status === 'success') {
           this.isSaving = false;
           if(result.excist) {
-            
+            this.$emit("select", result.result);
           }
           else {
-
+            this.$emit("select", result.result);
           }
         }
         else {
@@ -222,8 +214,6 @@ export default {
       catch (error) {
         this.$panel.error(error);
       }
-
-      //this.emitChange();
     },
   },
 };

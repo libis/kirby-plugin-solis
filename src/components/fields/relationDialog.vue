@@ -18,7 +18,7 @@
         </k-collection>
 
         <div v-if="create" class="create-new-record-btn">
-          <k-relation-create-dialog :createdType="createdType" :label="label" :createUrl="createUrl" @select="selectNewCreated(data)"/>
+          <k-relation-create-dialog :createdType="createdType" :label="label" :createUrl="createUrl" @select="selectNewCreated($event)"/>
         </div>
       </div>
 
@@ -121,17 +121,16 @@ export default {
 
     //user created a new record -> get a renew of the search and select
     selectNewCreated(item) {
-      this.search();
       const paths = this.textValue.split('|').map(p => p.trim());
-      const text = paths.map(path => this.getNestedValue(item.data[this.languageCode] || {}, path)).find(val => val !== undefined && val !== null && val !== '') || '';
+      const text = paths.map(path => this.getNestedValue(item.data || item || {}, path)).find(val => val !== undefined && val !== null && val !== '') || '';
 
       const newItem = {
         text: text,
-        info: this.getNestedValue(item.data[this.languageCode] || {}, this.infoValue) || '',
-        ...(this.getNestedValue(item.data[this.languageCode] || {}, this.imageValue)
+        info: this.getNestedValue(item.data || item || {}, this.infoValue) || '',
+        ...(this.getNestedValue(item.data || item || {}, this.imageValue)
           ? {
             image: {
-              src: this.getNestedValue(item.data[this.languageCode] || {}, this.imageValue)
+              src: this.getNestedValue(item.data || item || {}, this.imageValue)
             }
           } : {}),
         id: item.id.split('/').filter(Boolean).pop(),
@@ -140,6 +139,8 @@ export default {
           : {}),
       };
       this.selected.push(newItem);
+
+      this.search();
     },
 
     // user is ready selecting items warn the parent of a new selection

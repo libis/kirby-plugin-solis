@@ -135,12 +135,14 @@ export default {
           } : {}),
         id: item.id.split('/').filter(Boolean).pop(),
         ...(this.linkValue != ''
-          ? {linkUrl: this.mapUrl(item.id.split('/').filter(Boolean).pop(), this.linkValue), target: '_blank'}
+          ? {link: this.mapUrl(item.id.split('/').filter(Boolean).pop(), this.linkValue), target: '_blank'}
           : {}),
       };
       this.selected.push(newItem);
 
-      this.search();
+      setTimeout(() => {
+        this.search();
+      }, 5000);
     },
 
     // user is ready selecting items warn the parent of a new selection

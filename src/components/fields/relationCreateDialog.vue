@@ -8,6 +8,7 @@
     <k-button variant="default" icon="plus" @click="openDrawer()" size="xs">
       {{ $t("libis.solis.add") }}
     </k-button>
+    <k-box class="small-message" v-if="smallMessage != ''" theme="positive" icon="check" :text="smallMessage"/>
   </k-field>
 </template>
 
@@ -28,13 +29,14 @@ export default {
       currentCode: window.panel.language.code,
       isSaving: false,
       fields: null,
+      smallMessage: ""
     };
   },
   async mounted() {
     await this.loadFields();
   },
   computed: {
-    // based on the fields a record has create the drawer fields for edit and add
+    // based on the fields create the drawer fields for edit and add
     async drawerFields() {
       if (!this.fields) return {};
 
@@ -68,7 +70,11 @@ export default {
             ...rest,
             ...componentsOptions,
             name,
-            type: field.type === 'entity' ? subType.replaceAll('-', '_') : field.type,
+            type: field.type === 'entity' 
+              ? subType.replaceAll('-', '_') 
+              : field.type.endsWith('-field')
+                ? field.type.replace(/-field$/, '')
+                : field.type,
             ...(options && {
               options,
               ...(componentsOptions.fields && { fields: options })
@@ -195,15 +201,24 @@ export default {
         });
 
         const result = await response.json();
-        console.log(result);
 
         if (result.status === 'success') {
           this.isSaving = false;
           if(result.excist) {
+            this.smallMessage = this.$t('libis.record.already.excist');
             this.$emit("select", result.result);
+
+            setTimeout(() => {
+              this.smallMessage = "";
+            }, 2000);
           }
           else {
+            this.smallMessage = this.$t('libis.record.created');
             this.$emit("select", result.result);
+
+            setTimeout(() => {
+              this.smallMessage = "";
+            }, 2000);
           }
         }
         else {
@@ -262,5 +277,12 @@ export default {
   font-size: 2rem;
   display: block;
   margin-top: .5rem;
+}
+
+.small-message {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: auto;
 }
 </style>
